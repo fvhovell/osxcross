@@ -19,7 +19,7 @@ PUBKEYRMD160="d3a22f5be7184d6575afcc1be6fdb82fd25562e8"
 PUBKEYSHA1="214baa965af76ff71187e6c1ac91c559547f48ab"
 
 PLATFORM=$(uname -s)
-ARCH="x86_64"
+ARCH="$(uname -m)"
 
 if [ -z "$BASHPID" ]; then
   BASHPID=$(sh -c 'echo $PPID')
@@ -612,7 +612,7 @@ main()
       elif [ $opt == "-32" -o $opt == "--i386" ]; then
         ARCH="i386"
       elif [ $opt == "-universal" -o $opt == "--universal" ]; then
-        ARCH="i386-x86_64"
+        ARCH="arm64-x86_64"
       elif [ $opt == "-arm64" -o $opt == "--arm64" ]; then
         ARCH="arm64"
       elif [ $opt == "-sm" -o $opt == "--select-mirror" ]; then
