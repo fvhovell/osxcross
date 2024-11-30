@@ -334,7 +334,7 @@ getPkgUrl()
 
   if [ -z "$pkg" ]; then
     verboseMsg -n "  "
-    errorMsg "no suitable version found for $OSXVERSION"
+    errorMsg "no suitable version found for $OSXVERSION on $ARCH"
     return
   fi
 
