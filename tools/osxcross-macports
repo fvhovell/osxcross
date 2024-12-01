@@ -20,6 +20,7 @@ PUBKEYSHA1="214baa965af76ff71187e6c1ac91c559547f48ab"
 
 PLATFORM=$(uname -s)
 ARCH="$(uname -m)"
+ARCH="${ARCH/aarch64/arm64}"
 
 if [ -z "$BASHPID" ]; then
   BASHPID=$(sh -c 'echo $PPID')
