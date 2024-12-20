@@ -153,13 +153,20 @@ add_link() {
     return
   fi
 
-  echo -n "Adding link in release ${RELEASE} to packageId ${PACKAGE_ID} for ${FILE}: "
+  local PACKAGE_FILE_IDS=$(get_package_file_ids_of_file ${FILE} ${PACKAGE_ID})
+  if [[ -z ${PACKAGE_FILE_IDS} ]]; then
+    echo "No packageFileId found for file ${FILE}" >&2
+    return
+  fi
+  local PACKAGE_FILE_ID=$(echo "${PACKAGE_FILE_IDS}" | head -n 1)
+
+  echo -n "Adding link in release ${RELEASE} to packageFileId ${PACKAGE_FILE_ID} for ${FILE}: "
   local RESULT=$(
     curl --silent --request POST \
       --header "PRIVATE-TOKEN: ${PERSONAL_ACCESS_TOKEN}" \
       --data name="${FILE}" \
       --data link_type="package" \
-      --data url="${GITLAB_BASE_URL}/${CI_PROJECT_PATH}/-/package_files/${PACKAGE_ID}/download" \
+      --data url="${GITLAB_BASE_URL}/${CI_PROJECT_PATH}/-/package_files/${PACKAGE_FILE_ID}/download" \
       "${RELEASES_URL}"
   )
   echo " - done." >&2
