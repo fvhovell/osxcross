@@ -7,6 +7,15 @@
 
 VERSION=1.6alpha
 
+TAPI_VERSION="${APPLE_TAPI_VERSION:-1300.6.5}"
+CCTOOLS_VERSION="${CCTOOLS_VERSION:-986}"
+LINKER_VERSION="${DYLD_VERSION:-711}"
+CCTOOLS_PORT_VERSION="${CCTOOLS_VERSION}-ld64-${LINKER_VERSION}"
+
+echo "Using tools versions:"
+echo "- TAPI: ${TAPI_VERSION}"
+echo "- CCTOOLS_PORT: ${CCTOOLS_PORT_VERSION}"
+
 pushd "${0%/*}" &>/dev/null
 
 source tools/tools.sh
@@ -118,7 +127,9 @@ build_xar
 ## Apple TAPI Library ##
 
 if [ $NEED_TAPI_SUPPORT -eq 1 ]; then
-  get_sources https://github.com/binarylandia/apple-libtapi 1500.0.12.3
+  get_sources \
+    https://gitlab.svc.lan/opensource/macos/apple-tapi.git \
+    $TAPI_VERSION
 
   if [ $f_res -eq 1 ]; then
     pushd $CURRENT_BUILD_PROJECT_NAME &>/dev/null
@@ -131,12 +142,9 @@ fi
 
 ## cctools and ld64 ##
 
-CCTOOLS_VERSION=986
-LINKER_VERSION=711
-
 get_sources \
-  https://github.com/tpoechtrager/cctools-port.git \
-  $CCTOOLS_VERSION-ld64-$LINKER_VERSION
+  https://gitlab.svc.lan/opensource/macos/cctools-port.git \
+  ${CCTOOLS_PORT_VERSION}
 
 if [ $f_res -eq 1 ]; then
   pushd $CURRENT_BUILD_PROJECT_NAME/cctools &>/dev/null
