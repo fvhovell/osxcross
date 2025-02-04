@@ -5,7 +5,7 @@
 # This script requires the OS X SDK and the Clang/LLVM compiler.
 #
 
-VERSION=1.5
+VERSION=1.6alpha
 
 pushd "${0%/*}" &>/dev/null
 
