@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+XAR_VERSION=${XAR_VERSION:-main}
+P7ZIP_VERSION=${P7ZIP_VERSION:-main}
+PBZX_VERSION=${PBZX_VERSION:-main}
+
+echo "Using tools versions:"
+echo "- xar: ${XAR_VERSION}"
+echo "- p7zip: ${P7ZIP_VERSION}"
+echo "- pbzx: ${PBZX_VERSION}"
+
 export LC_ALL="C"
 
 function set_path_vars()
@@ -512,7 +521,9 @@ function build_xar()
 {
   pushd $BUILD_DIR &>/dev/null
 
-  get_sources https://github.com/tpoechtrager/xar.git master
+  get_sources \
+    https://gitlab.svc.lan/opensource/macos/xar.git \
+    $XAR_VERSION
 
   if [ $f_res -eq 1 ]; then
     pushd $CURRENT_BUILD_PROJECT_NAME/xar &>/dev/null
@@ -529,7 +540,9 @@ function build_xar()
 
 function build_p7zip()
 {
-  get_sources https://github.com/tpoechtrager/p7zip.git master
+  get_sources \
+    gitlab.svc.lan:opensource/macos/p7zip.git \
+    $P7ZIP_VERSION
 
   if [ $f_res -eq 1 ]; then
     pushd $CURRENT_BUILD_PROJECT_NAME &>/dev/null
@@ -552,7 +565,9 @@ function build_p7zip()
 
 function build_pbxz()
 {
-  get_sources https://github.com/tpoechtrager/pbzx.git master
+  get_sources \
+    gitlab.svc.lan:opensource/macos/pbzx.git \
+    $PBZX_VERSION
 
   if [ $f_res -eq 1 ]; then
     pushd $CURRENT_BUILD_PROJECT_NAME &>/dev/null
