@@ -6,7 +6,7 @@ if [[ -z ${PERSONAL_ACCESS_TOKEN} ]]; then
   exit 1
 fi
 
-RELEASE_VERSION="v0.1.0"
+RELEASE_VERSION="v0.2.0"
 GITLAB_BASE_URL="https://gitlab.svc.lan"
 CI_PROJECT_ID="173"
 CI_PROJECT_PATH="opensource/macos/osxcross"
